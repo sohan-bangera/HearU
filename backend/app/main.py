@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.database import create_db_and_tables
 from app.routes import audio, stats
+from app import models
 
 # lifespan handles the startup and shutdown events
 # Everything before yield runs when server starts
