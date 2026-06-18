@@ -1,0 +1,28 @@
+# Reflex
+.web/
+.states/
+assets/external/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+
+# Environment
+.env
+
+# Database
+*.db
+*.sqlite
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
