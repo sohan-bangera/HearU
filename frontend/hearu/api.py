@@ -7,7 +7,7 @@ load_dotenv()
 API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 async def get_stats() -> dict:
-    async with httpx.AysncClient() as client:
+    async with httpx.AsyncClient() as client:
         response = await client.get(f"{API_URL}/stats")
         return response.json()
     
