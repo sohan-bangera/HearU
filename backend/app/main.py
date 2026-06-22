@@ -19,7 +19,7 @@ app = FastAPI(title="HearU API", lifespan=lifespan)
 # Withour this, browser blocks all requests from localhost:5173 to localhost:8000
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], # React Dev Server
+    allow_origins=["http://localhost:3000"], # React Dev Server
     allow_credentials=True,                  # Allow session tokens/cookies  
     allow_methods=["*"],                     # Allow GET, POST, PUT, DELETE etc 
     allow_headers=["*"],                     # Allow all request headers
