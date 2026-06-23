@@ -17,8 +17,9 @@ class State(rx.State):
     selected_category: str = ""
     record_status: str = ""
     record_message: str = ""
+    audio_data: str = ""
 
-    # --- Listen PAge ---
+    # --- Listen Page ---
     listen_step: str = "category"
     listen_category: str = ""
     current_audio_url: str = ""
@@ -40,9 +41,44 @@ class State(rx.State):
     def select_listen_category(self, category: str):
         self.listen_category = category
 
+    def set_audio_data(self, data: str):
+        self.audio_data = data
+
+    async def handle_submit_click(self):
+        """Gets audio data from JS then submits."""
+        return rx.call_script(
+            "window._audioBase64 || ''",
+            callback=State.submit_audio
+        )
+
+    async def submit_audio(self, audio_data: str):
+        import base64
+
+        if not audio_data:
+            print("No audio data received")
+            return
+
+        self.record_step = "submitting"
+        yield
+
+        audio_bytes = base64.b64decode(audio_data)
+
+        result = await api.upload_audio(
+            audio_bytes,
+            self.selected_category,
+            self.session_token
+        )
+
+        if result.get("status") == "approved":
+            self.record_step = "done"
+        else:
+            self.record_step = "flagged"
+
+        self.audio_data = ""
+
     async def fetch_random_audio(self):
         data = await api.get_random_audio(
-            self.listen_category, 
+            self.listen_category,
             self.session_token
         )
         if data is None:
@@ -62,6 +98,7 @@ class State(rx.State):
         self.selected_category = ""
         self.record_status = ""
         self.record_message = ""
+        self.audio_data = ""
 
     def reset_listen(self):
         self.listen_step = "category"
