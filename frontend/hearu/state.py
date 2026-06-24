@@ -41,6 +41,11 @@ class State(rx.State):
     def select_listen_category(self, category: str):
         self.listen_category = category
 
+    async def select_category_and_fetch(self, category: str):
+        """Select Category and fetch audio in one event"""
+        self.listen_category = category
+        await self.fetch_random_audio()
+
     def set_audio_data(self, data: str):
         self.audio_data = data
 

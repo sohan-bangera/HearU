@@ -1,6 +1,7 @@
 import reflex as rx
 from hearu.pages.home import home
 from hearu.pages.record import record_page
+from hearu.pages.listen import listen_page
 
 app = rx.App(
     style={
@@ -11,3 +12,4 @@ app = rx.App(
 
 app.add_page(home, route="/")
 app.add_page(record_page, route="/record")
+app.add_page(listen_page, route="/listen")

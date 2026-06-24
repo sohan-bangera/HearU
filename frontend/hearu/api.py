@@ -23,7 +23,7 @@ async def get_random_audio(category: str, session_token: str) -> dict | None:
     
 
 async def mark_heard(audio_id: str, session_token: str) -> dict:
-    async with httpx.AsynClient() as client:
+    async with httpx.AsyncClient() as client:
         response = await client.post(
             f"{API_URL}/audio/mark-heard",
             json={"audio_id": audio_id, "session_token": session_token}
